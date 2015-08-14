@@ -17,6 +17,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     // La chaîne de caractères par défaut
     private final String defaut = "Vous devez cliquer sur le bouton « Calculer l'IMC » pour obtenir un résultat.";
+    private final String defautComment = "La norme doit etre de 18.5 à 25.";
     // La chaîne de caractères de la megafonction
     private final String megaString = "Vous faites un poids parfait ! Wahou ! Trop fort ! On dirait Brad Pitt (si vous êtes un homme)/Angelina Jolie (si vous êtes une femme)/Willy (si vous êtes un orque) !";
 
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     EditText taille = null;
     RadioGroup group = null;
     TextView result = null;
+    TextView comment = null;
     CheckBox mega = null;
 
     @Override
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         mega = (CheckBox)findViewById(R.id.mega);
         group = (RadioGroup)findViewById(R.id.group);
         result = (TextView)findViewById(R.id.result);
+        comment = (TextView)findViewById(R.id.comment);
 
         // On attribue un listener adapté aux vues qui en ont besoin
         envoyer.setOnClickListener(envoyerListener);
@@ -70,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             result.setText(defaut);
+            comment.setText(defautComment);
         }
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -104,6 +108,13 @@ public class MainActivity extends AppCompatActivity {
                     tValue = (float)Math.pow(tValue, 2);
                     float imc = pValue / tValue;
                     result.setText("Votre IMC est " + String.valueOf(imc));
+                    if(imc<=16.5) comment.setText("Statut: dénutrition ou famine.");
+                    else if(imc<=18.5) comment.setText("Statut: maigreur.");
+                    else if(imc<=25) comment.setText("Statut: corpulence normale.");
+                    else if(imc<=30) comment.setText("Statut: surpoids.");
+                    else if(imc<=35) comment.setText("Statut: obésité modérée.");
+                    else if(imc<=40) comment.setText("Statut: obésité sévère.");
+                    else comment.setText("Statut: obésité morbide ou massive.");
                 }
             } else
                 result.setText(megaString);
