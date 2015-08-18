@@ -31,39 +31,82 @@
                 android:textSize="18dp"
                 />
 
-            <TextView
+            <TableLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Poids : "
-                android:textStyle="bold"
-                android:textColor="#FF0000"
-                android:gravity="center"
-                />
+                android:shrinkColumns="0"
+                android:stretchColumns="2"
+                android:collapseColumns="3">
 
-            <EditText
-                android:id="@+id/poids"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:hint="Poids"
-                android:inputType="numberDecimal"
-                />
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090"
+                    />
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Taille : "
-                android:textStyle="bold"
-                android:textColor="#FF0000"
-                android:gravity="center"
-                />
+                <TableRow>
 
-            <EditText
-                android:id="@+id/taille"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:hint="Taille"
-                android:inputType="numberDecimal"
-                />
+                    <TextView
+                        android:text=" * "
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Poids : "
+                        android:textStyle="bold"
+                        android:textColor="#FF0000"
+                        android:layout_column="1"
+                        android:padding="3dip"
+                        />
+
+                    <EditText
+                        android:id="@+id/poids"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Poids"
+                        android:inputType="numberDecimal"
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:text="Blabla"
+                        />
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:text=" * "
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Taille : "
+                        android:textStyle="bold"
+                        android:textColor="#FF0000"
+                        android:layout_column="1"
+                        android:padding="3dip"
+                        />
+
+                    <EditText
+                        android:id="@+id/taille"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Taille"
+                        android:inputType="numberDecimal"
+                        android:layout_weight="1"
+                        />
+
+                </TableRow>
+
+                <View
+                    android:layout_height="2dip"
+                    android:background="#FF909090"
+                    />
+
+            </TableLayout>
 
             <RadioGroup
                 android:id="@+id/group"
@@ -95,19 +138,32 @@
                 android:text="Mega fonction !"
                 />
 
-            <Button
-                android:id="@+id/calcul"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Calculer l'IMC"
-                />
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/raz"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="RAZ"
-                />
+                <Button
+                    android:id="@+id/raz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="RAZ"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginRight="15dip"
+                    />
+
+                <Button
+                    android:id="@+id/calcul"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Calculer l'IMC"
+                    android:clickable="false"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginRight="15dip"
+                    />
+
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -119,14 +175,14 @@
                 android:id="@+id/result"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:text="Vous devez cliquer sur le bouton « Calculer l'IMC » pour obtenir un résultat."
+                android:text="@string/defaultResult"
                 />
 
             <TextView
                 android:id="@+id/comment"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:text="La norme doit etre de 18.5 à 25."
+                android:text="@string/defaultComment"
                 />
 
         </LinearLayout>

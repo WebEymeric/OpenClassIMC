@@ -1,5 +1,6 @@
 package com.example.eymbla.openclassimc;
 
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,11 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    // La chaîne de caractères par défaut
-    private final String defaut = "Vous devez cliquer sur le bouton « Calculer l'IMC » pour obtenir un résultat.";
-    private final String defautComment = "La norme doit etre de 18.5 à 25.";
-    // La chaîne de caractères de la megafonction
-    private final String megaString = "Vous faites un poids parfait ! Wahou ! Trop fort ! On dirait Brad Pitt (si vous êtes un homme)/Angelina Jolie (si vous êtes une femme)/Willy (si vous êtes un orque) !";
+
+    // Les chaînes de caractères par défaut
+    private String defaultResult = "";
+    private String defaultComment = "";
+    private String megaString = "";
 
     Button envoyer = null;
     Button raz = null;
@@ -34,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Resources res = getResources();
+        defaultResult = res.getString(R.string.defaultResult);
+        megaString = res.getString(R.string.megaString);
+        defaultComment = res.getString(R.string.defaultComment, "unité");
 
         // On récupère toutes les vues dont on a besoin
         envoyer = (Button)findViewById(R.id.calcul);
@@ -44,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         group = (RadioGroup)findViewById(R.id.group);
         result = (TextView)findViewById(R.id.result);
         comment = (TextView)findViewById(R.id.comment);
+
+        comment.setText(defaultComment);
 
         // On attribue un listener adapté aux vues qui en ont besoin
         envoyer.setOnClickListener(envoyerListener);
@@ -63,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
         // On remet le texte à sa valeur par défaut pour ne pas avoir de résultat incohérent
-        result.setText(defaut);
+        result.setText(defaultResult);
         return false;
         }
     };
@@ -72,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            result.setText(defaut);
-            comment.setText(defautComment);
+            result.setText(defaultResult);
+            comment.setText(defaultComment);
         }
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -94,7 +101,10 @@ public class MainActivity extends AppCompatActivity {
                 // On récupère le poids
                 String p = poids.getText().toString();
 
-                float tValue = Float.valueOf(t);
+                float tValue = 0;
+                try {
+                    tValue = Float.valueOf(t);
+                } catch (NumberFormatException ignored) {}
 
                 // Puis on vérifie que la taille est cohérente
                 if(tValue == 0)
@@ -116,8 +126,11 @@ public class MainActivity extends AppCompatActivity {
                     else if(imc<=40) comment.setText("Statut: obésité sévère.");
                     else comment.setText("Statut: obésité morbide ou massive.");
                 }
-            } else
+            }
+            else {
                 result.setText(megaString);
+                comment.setText(defaultComment);
+            }
         }
     };
 
@@ -127,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             poids.getText().clear();
             taille.getText().clear();
-            result.setText(defaut);
+            result.setText(defaultResult);
         }
     };
 
@@ -136,8 +149,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             // On remet le texte par défaut si c'était le texte de la megafonction qui était écrit
-            if(!((CheckBox)v).isChecked() && result.getText().equals(megaString))
-                result.setText(defaut);
+            if(!((CheckBox)v).isChecked() && result.getText().equals(megaString)) {
+                result.setText(defaultResult);
+                comment.setText(defaultComment);
+            }
         }
     };
 

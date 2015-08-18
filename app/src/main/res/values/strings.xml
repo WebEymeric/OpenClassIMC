@@ -3,4 +3,7 @@
 
     <string name="hello_world">Bienvenue sur Calcul IMC</string>
     <string name="action_settings">Settings</string>
+    <string name="defaultComment">La norme doit etre de 18.5 à 25 %1$s.</string>
+    <string name="defaultResult">Vous devez cliquer sur le bouton « Calculer l\'IMC » pour obtenir un résultat.</string>
+    <string name="megaString">Vous faites un poids parfait ! Wahou ! Trop fort ! On dirait Brad Pitt (si vous êtes un homme)/Angelina Jolie (si vous êtes une femme)/Willy (si vous êtes un orque) !</string>
 </resources>
